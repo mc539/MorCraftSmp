@@ -117,3 +117,53 @@ dialog.addEventListener("close", () => { if (pollTimer) clearTimeout(pollTimer);
 dialog.addEventListener("click", event => {
   if (event.target === dialog) dialog.close();
 });
+
+const serverStateEl = document.getElementById("serverState");
+const botStateEl = document.getElementById("botState");
+const botControlMessage = document.getElementById("botControlMessage");
+const startBotButton = document.getElementById("startBotButton");
+let statusRequestBusy = false;
+
+async function refreshBotStatus() {
+  if (statusRequestBusy) return;
+  statusRequestBusy = true;
+  try {
+    const response = await fetch(STORE_API + "/api/bot/status", { cache: "no-store" });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Durum alınamadı.");
+    const connected = data.connected || data.state === "online";
+    const connecting = data.state === "connecting";
+    botStateEl.textContent = connected ? "Çevrimiçi" : connecting ? "Bağlanıyor…" : "Bağlı değil";
+    botStateEl.dataset.state = connected ? "online" : connecting ? "connecting" : "offline";
+    serverStateEl.textContent = connected ? "Açık ve erişilebilir" : "Bot henüz bağlanamadı";
+    serverStateEl.dataset.state = connected ? "online" : "offline";
+    if (connected) botControlMessage.textContent = "MorCraftAi sunucuya bağlandı. Mağaza ve oyun içi yapay zekâ özellikleri kullanılabilir.";
+    else if (connecting) botControlMessage.textContent = "Bot bağlantı kurmayı deniyor. Aternos sunucusu açıldıysa biraz bekle.";
+    else if (data.lastError) botControlMessage.textContent = "Son bağlantı bilgisi: " + data.lastError;
+    else botControlMessage.textContent = "Aternos sunucusu kapalı olabilir. Aternos'tan sunucuyu aç; bot otomatik bağlanmayı deneyecek.";
+  } catch {
+    serverStateEl.textContent = "Kontrol edilemiyor";
+    botStateEl.textContent = "API'ye ulaşılamıyor";
+    botControlMessage.textContent = "Bot servisi uyuyor veya yeniden başlatılıyor olabilir. Biraz sonra tekrar dene.";
+  } finally {
+    statusRequestBusy = false;
+  }
+}
+
+startBotButton.addEventListener("click", async () => {
+  startBotButton.disabled = true;
+  botControlMessage.textContent = "Bot başlatılıyor, bağlantı deneniyor…";
+  try {
+    const response = await fetch(STORE_API + "/api/bot/start", { method: "POST" });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || "Bot başlatılamadı.");
+    botControlMessage.textContent = data.message || "Bot bağlantı kurmayı deniyor.";
+    await refreshBotStatus();
+  } catch (error) {
+    botControlMessage.textContent = error.message;
+  } finally {
+    startBotButton.disabled = false;
+  }
+});
+refreshBotStatus();
+setInterval(refreshBotStatus, 10000);
