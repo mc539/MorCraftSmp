@@ -68,14 +68,14 @@
           <h3>VIP<span class="plus">+</span></h3><p class="rank-desc">Daha fazlasını isteyenlere.</p>
           <div class="price">60.000 <small>COIN</small></div>
           <ul><li>VIP+ rütbesi</li><li>VIP+ ayrıcalıkları</li><li>Özel rütbe görünümü</li></ul>
-          <button class="rank-button rank-button-bright" data-rank="VIP+" data-price="60.000">VIP+'ı İncele <span>→</span></button>
+          <button class="rank-button rank-button-bright" data-rank="VIP+" data-price="100.000">VIP+'ı İncele <span>→</span></button>
         </article>
         <article class="rank-card">
           <div class="rank-top"><span class="rank-symbol">⬡</span><span class="rank-label">ÜST SEVİYE</span></div>
           <h3>MVP</h3><p class="rank-desc">MorCraft'ta zirveye çık.</p>
           <div class="price">100.000 <small>COIN</small></div>
           <ul><li>MVP rütbesi</li><li>MVP ayrıcalıkları</li><li>Özel rütbe görünümü</li></ul>
-          <button class="rank-button" data-rank="MVP" data-price="100.000">MVP'yi İncele <span>→</span></button>
+          <button class="rank-button" data-rank="MVP" data-price="60.000">MVP'yi İncele <span>→</span></button>
         </article>
       </div>
       <p class="store-footnote">Rütbe ayrıcalıklarının kapsamı sunucu içindeki mevcut rütbe ayarlarına göre uygulanır. Satın alma, sunucunun mevcut ekonomi sistemiyle bağlantı kurulduğunda etkinleştirilecektir.</p>
@@ -94,8 +94,12 @@
     <button class="dialog-close" id="dialogClose" aria-label="Kapat">×</button>
     <span class="section-kicker">MORCRAFT MAĞAZA</span><h2 id="dialogTitle">VIP</h2><div class="dialog-price" id="dialogPrice">30.000 COIN</div>
     <p>Bu rütbe gerçek para ile satılmaz. Ödeme yalnızca sunucudaki mevcut oyun içi coin bakiyesiyle yapılacaktır.</p>
-    <p class="dialog-note">Web sitesinden güvenli satın alma için sunucunun ekonomi sistemiyle bağlantı kurulması gerekiyor. Bağlantı tamamlanmadan coin düşümü veya rütbe teslimi yapılmaz.</p>
-    <button class="button button-primary dialog-ok" id="dialogOk">Anladım</button>
+    <label for="mcUsername">Minecraft kullanıcı adın</label>
+    <input id="mcUsername" maxlength="16" autocomplete="off" placeholder="OyuncuAdı">
+    <button class="button button-primary dialog-ok" id="linkStart">Bağlantı kodu oluştur</button>
+    <div id="linkCode" class="dialog-price" hidden></div>
+    <p id="linkHelp" class="dialog-note" aria-live="polite">Kodu oluştur, sonra sunucu sohbetine !site KOD yaz.</p>
+    <button class="button button-primary dialog-ok" id="purchaseRank" disabled>Coin ile satın al</button>
   </dialog>
   <script src="script.js"></script>
 </body>
