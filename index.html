@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10130f">
+  <meta name="description" content="MorCraftSmp — arkadaşlarınla keşfet, geliş, savaş ve kendi hikâyeni yaz.">
+  <title>MorCraftSmp — Minecraft Sunucusu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#home"><span class="brand-mark">M</span><span>MorCraft<span class="brand-muted">Smp</span></span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç">☰</button>
+    <nav id="nav">
+      <a href="#home">Ana Sayfa</a><a href="#features">Özellikler</a><a href="#store">Mağaza</a><a href="#join">Sunucuya Katıl</a>
+    </nav>
+    <a class="nav-cta" href="#store">Rütbeleri Gör <span>↗</span></a>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> MINECRAFT SMP DENEYİMİ</div>
+        <h1>Kendi hikâyeni<br><span class="gradient-text">MorCraft'ta</span> yaz.</h1>
+        <p class="hero-lead">Macera, ekonomi ve dostluk tek bir dünyada buluşuyor. Yerini al, geliş ve MorCraftSmp topluluğuna katıl.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#join">Sunucuya Katıl <span>→</span></a><a class="button button-ghost" href="#store">Mağazayı Keşfet</a></div>
+        <div class="hero-note"><span class="tiny-dot"></span> Java Edition • SMP</div>
+      </div>
+      <div class="hero-art" aria-label="MorCraftSmp temalı Minecraft dünyası">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="cube cube-back"></div><div class="cube cube-main"><span>M</span></div><div class="cube cube-small"></div>
+        <div class="float-card"><span class="float-icon">✦</span><div><b>Macera seni bekliyor</b><small>MorCraftSmp dünyasına adım at</small></div></div>
+        <div class="art-caption">BUILD · EXPLORE · SURVIVE</div>
+      </div>
+    </section>
+
+    <section class="join-strip" id="join">
+      <div><span class="section-kicker">SUNUCU ADRESİ</span><strong>Hemen aramıza katıl</strong><small>Sunucu IP'sini kopyala ve Minecraft'a gir.</small></div>
+      <div class="ip-copy"><code>MorCraftSmp.aternos.me</code><button id="copyIp" aria-label="Sunucu IP adresini kopyala">Kopyala <span>▣</span></button></div>
+    </section>
+
+    <section class="section features" id="features">
+      <div class="section-heading"><div><span class="section-kicker">NEDEN MORCRAFT?</span><h2>Bir dünyadan <span class="gradient-text">daha fazlası.</span></h2></div><p>İster kendi yapını kur, ister ekonomide yüksel. MorCraft'ta oyun senin tarzında.</p></div>
+      <div class="feature-grid">
+        <article class="feature-card"><div class="feature-icon">⚒</div><h3>Özgür SMP</h3><p>Kendi alanını oluştur, keşfet ve arkadaşlarınla birlikte geliş.</p></article>
+        <article class="feature-card"><div class="feature-icon">◈</div><h3>Sunucu Ekonomisi</h3><p>Sunucudaki mevcut satış sistemiyle oyun içinde kazandığın parayı değerlendir.</p></article>
+        <article class="feature-card"><div class="feature-icon">♜</div><h3>Rütbe Sistemi</h3><p>Oyun içi paranla VIP, VIP+ ve MVP rütbelerine yüksel.</p></article>
+      </div>
+    </section>
+
+    <section class="section store" id="store">
+      <div class="section-heading store-heading"><div><span class="section-kicker">MORCRAFT MAĞAZA</span><h2>Rütbeni <span class="gradient-text">yükselt.</span></h2></div><p>Gerçek para yok. Tüm rütbe fiyatları oyun içi coin olarak belirlenmiştir.</p></div>
+      <div class="rank-grid">
+        <article class="rank-card">
+          <div class="rank-top"><span class="rank-symbol">✧</span><span class="rank-label">BAŞLANGIÇ</span></div>
+          <h3>VIP</h3><p class="rank-desc">Sunucuda ayrıcalıklarını keşfet.</p>
+          <div class="price">30.000 <small>COIN</small></div>
+          <ul><li>VIP rütbesi</li><li>VIP ayrıcalıkları</li><li>Toplulukta özel görünüm</li></ul>
+          <button class="rank-button" data-rank="VIP" data-price="30.000">VIP'yi İncele <span>→</span></button>
+        </article>
+        <article class="rank-card rank-featured">
+          <div class="popular">POPÜLER</div><div class="rank-top"><span class="rank-symbol">✦</span><span class="rank-label">GELİŞMİŞ</span></div>
+          <h3>VIP<span class="plus">+</span></h3><p class="rank-desc">Daha fazlasını isteyenlere.</p>
+          <div class="price">60.000 <small>COIN</small></div>
+          <ul><li>VIP+ rütbesi</li><li>VIP+ ayrıcalıkları</li><li>Özel rütbe görünümü</li></ul>
+          <button class="rank-button rank-button-bright" data-rank="VIP+" data-price="60.000">VIP+'ı İncele <span>→</span></button>
+        </article>
+        <article class="rank-card">
+          <div class="rank-top"><span class="rank-symbol">⬡</span><span class="rank-label">ÜST SEVİYE</span></div>
+          <h3>MVP</h3><p class="rank-desc">MorCraft'ta zirveye çık.</p>
+          <div class="price">100.000 <small>COIN</small></div>
+          <ul><li>MVP rütbesi</li><li>MVP ayrıcalıkları</li><li>Özel rütbe görünümü</li></ul>
+          <button class="rank-button" data-rank="MVP" data-price="100.000">MVP'yi İncele <span>→</span></button>
+        </article>
+      </div>
+      <p class="store-footnote">Rütbe ayrıcalıklarının kapsamı sunucu içindeki mevcut rütbe ayarlarına göre uygulanır. Satın alma, sunucunun mevcut ekonomi sistemiyle bağlantı kurulduğunda etkinleştirilecektir.</p>
+    </section>
+
+    <section class="bottom-cta">
+      <div><span class="section-kicker">MACERAYA HAZIR MISIN?</span><h2>Dünya seni bekliyor.</h2><p>IP adresini kopyala, Minecraft'ı aç ve MorCraftSmp'ye katıl.</p></div>
+      <button class="button button-primary" id="copyIpBottom">IP'yi Kopyala <span>↗</span></button>
+    </section>
+  </main>
+
+  <footer><a class="brand" href="#home"><span class="brand-mark">M</span><span>MorCraft<span class="brand-muted">Smp</span></span></a><span>© <span id="year"></span> MorCraftSmp. Tüm hakları saklıdır.</span><a href="#home">Yukarı çık ↑</a></footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog id="rankDialog" class="rank-dialog">
+    <button class="dialog-close" id="dialogClose" aria-label="Kapat">×</button>
+    <span class="section-kicker">MORCRAFT MAĞAZA</span><h2 id="dialogTitle">VIP</h2><div class="dialog-price" id="dialogPrice">30.000 COIN</div>
+    <p>Bu rütbe gerçek para ile satılmaz. Ödeme yalnızca sunucudaki mevcut oyun içi coin bakiyesiyle yapılacaktır.</p>
+    <p class="dialog-note">Web sitesinden güvenli satın alma için sunucunun ekonomi sistemiyle bağlantı kurulması gerekiyor. Bağlantı tamamlanmadan coin düşümü veya rütbe teslimi yapılmaz.</p>
+    <button class="button button-primary dialog-ok" id="dialogOk">Anladım</button>
+  </dialog>
+  <script src="script.js"></script>
+</body>
+</html>
