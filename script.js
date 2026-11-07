@@ -59,32 +59,48 @@ document.getElementById("linkStart").addEventListener("click", async () => {
   }
   const startButton = document.getElementById("linkStart");
   startButton.disabled = true;
-  linkHelp.textContent = "Kod hazırlanıyor...";
+  purchaseButton.disabled = true;
+  storeSession = "";
+  linkCode.hidden = true;
+  linkHelp.textContent = "Bot bağlantısı kontrol ediliyor...";
   try {
     const response = await fetch(STORE_API + "/api/store/link/start", {
-      method: "POST", headers: {"Content-Type":"application/json"},
+      method: "POST", headers: {"Content-Type":"application/json", "Accept":"application/json"},
+      cache: "no-store",
       body: JSON.stringify({username})
     });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "Kod oluşturulamadı.");
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || "Bağlantı kodu oluşturulamadı.");
     linkCode.hidden = false;
     linkCode.textContent = data.code;
-    linkHelp.textContent = "Şimdi Minecraft sunucusunda sohbete !site " + data.code + " yaz. Kod 5 dakika geçerli.";
+    linkHelp.textContent = "Minecraft sunucusunda sohbete !site " + data.code + " yaz. Kod 5 dakika geçerli.";
     const code = data.code;
-    const deadline = Date.now() + 300000;
+    const deadline = Date.now() + (Number(data.expiresInSeconds) || 300) * 1000;
     if (pollTimer) clearTimeout(pollTimer);
     const poll = async () => {
-      if (!dialog.open || Date.now() > deadline) return;
+      if (!dialog.open || storeSession) return;
+      if (Date.now() >= deadline) {
+        linkHelp.textContent = "Kodun süresi doldu. Yeni bir kod oluşturup tekrar dene.";
+        linkCode.hidden = true;
+        return;
+      }
       try {
-        const check = await fetch(STORE_API + "/api/store/link/status?code=" + encodeURIComponent(code));
-        const state = await check.json();
-        if (state.verified) {
+        const check = await fetch(STORE_API + "/api/store/link/status?code=" + encodeURIComponent(code), {cache:"no-store"});
+        const state = await check.json().catch(() => ({}));
+        if (state.verified && state.sessionToken) {
           storeSession = state.sessionToken;
           purchaseButton.disabled = false;
-          linkHelp.textContent = username + " hesabı doğrulandı. Artık satın alabilirsin.";
+          linkHelp.textContent = username + " hesabı doğrulandı. Artık coin ile satın alabilirsin.";
           return;
         }
-      } catch {}
+        if (check.status === 404) {
+          linkHelp.textContent = state.error || "Kod geçersiz veya süresi doldu. Yeni kod oluştur.";
+          linkCode.hidden = true;
+          return;
+        }
+      } catch {
+        linkHelp.textContent = "Sunucu bağlantısı kontrol edilemiyor. Bağlantı geri gelince tekrar dene.";
+      }
       pollTimer = setTimeout(poll, 2500);
     };
     poll();
@@ -131,7 +147,7 @@ async function refreshBotStatus() {
     const response = await fetch(STORE_API + "/api/bot/status", { cache: "no-store" });
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || "Durum alınamadı.");
-    const connected = data.connected || data.state === "online";
+    const connected = data.connected === true;
     const connecting = data.state === "connecting";
     botStateEl.textContent = connected ? "Çevrimiçi" : connecting ? "Bağlanıyor…" : "Bağlı değil";
     botStateEl.dataset.state = connected ? "online" : connecting ? "connecting" : "offline";
